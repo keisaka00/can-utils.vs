@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{ae6a0f55-9215-4fdd-88c5-9c8f92845563}</ProjectGuid>
+    <Keyword>Linux</Keyword>
+    <RootNamespace>asc2log</RootNamespace>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <ApplicationType>Linux</ApplicationType>
+    <ApplicationTypeRevision>1.0</ApplicationTypeRevision>
+    <TargetLinuxPlatform>Raspberry</TargetLinuxPlatform>
+    <LinuxProjectType>{8748239F-558C-44D1-944B-07B09C35B330}</LinuxProjectType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <RemoteRootDir>~/projects</RemoteRootDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <RemoteRootDir>~/projects</RemoteRootDir>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <IncludePath>..\can-utils\include;C:\cross\rpi\usr\include;C:\cross\rpi\usr\include\arm-linux-gnueabihf;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <IncludePath>..\can-utils\include;C:\cross\rpi\usr\include;C:\cross\rpi\usr\include\arm-linux-gnueabihf;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Link>
+      <LibraryDependencies>can-utils-libs</LibraryDependencies>
+    </Link>
+    <RemotePostBuildEvent>
+      <Command>gpio export 17 out</Command>
+      <Message>export pin 17 using the gpio utility so that we can execute the blink program without sudo</Message>
+    </RemotePostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Link>
+      <LibraryDependencies>can-utils-libs</LibraryDependencies>
+      <AdditionalLibraryDirectories>/tmp/usrlibvs/can-utils-libs/bin/$(PlatformTarget)/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <RemotePostBuildEvent>
+      <Command>gpio export 17 out</Command>
+      <Message>export pin 17 using the gpio utility so that we can execute the blink program without sudo</Message>
+    </RemotePostBuildEvent>
+    <ClCompile>
+      <PreprocessorDefinitions>_FILE_OFFSET_BITS=64;SO_RXQ_OVFL=40;PF_CAN=29;AF_CAN=PF_CAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CLanguageStandard>Default</CLanguageStandard>
+      <CppLanguageStandard>Default</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\can-utils\canframelen.h" />
+    <ClInclude Include="..\can-utils\lib.h" />
+    <ClInclude Include="..\can-utils\include\linux\can.h" />
+    <ClInclude Include="..\can-utils\include\linux\can\bcm.h" />
+    <ClInclude Include="..\can-utils\include\linux\can\error.h" />
+    <ClInclude Include="..\can-utils\include\linux\can\gw.h" />
+    <ClInclude Include="..\can-utils\include\linux\can\isotp.h" />
+    <ClInclude Include="..\can-utils\include\linux\can\netlink.h" />
+    <ClInclude Include="..\can-utils\include\linux\can\raw.h" />
+    <ClInclude Include="..\can-utils\terminal.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\can-utils\asc2log.c" />
+  </ItemGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <PreprocessorDefinitions>_FILE_OFFSET_BITS=64;SO_RXQ_OVFL=40;PF_CAN=29;AF_CAN=PF_CAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CLanguageStandard>Default</CLanguageStandard>
+      <CppLanguageStandard>Default</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>/tmp/usrlibvs/can-utils-libs/bin/$(PlatformTarget)/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{9623c25e-f161-4aa8-9893-ad031c540233}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\can-utils\include\linux\can\bcm.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\can-utils\include\linux\can.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\can-utils\canframelen.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\can-utils\include\linux\can\error.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\can-utils\include\linux\can\gw.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\can-utils\include\linux\can\isotp.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\can-utils\lib.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\can-utils\include\linux\can\netlink.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\can-utils\include\linux\can\raw.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\can-utils\terminal.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\can-utils\asc2log.c" />
+  </ItemGroup>
+</Project>
